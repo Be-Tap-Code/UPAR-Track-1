@@ -82,8 +82,9 @@ for overrides; the code requires `timm==1.0.9`.
 
 ```bash
 docker build -t upar-track1 .
-docker run --gpus all -v /path/to/images:/images upar-track1 \
-  python tools/predict_folder.py --images /images --out /workspace/predictions.csv
+docker run --gpus all \
+  -v /path/to/images:/images -v "$PWD":/out upar-track1 \
+  python tools/predict_folder.py --images /images --out /out/predictions.csv
 ```
 
 The Docker image uses `pytorch/pytorch:2.4.1-cuda12.1-cudnn9-runtime`, matching
