@@ -35,6 +35,9 @@ git lfs pull
 sha256sum -c weights.sha256
 ```
 
+Direct download (same file, GitHub LFS media host):
+`https://media.githubusercontent.com/media/Be-Tap-Code/UPAR-Track-1/main/inference/assets/weights.pt`
+
 ## Inference
 
 ```bash
