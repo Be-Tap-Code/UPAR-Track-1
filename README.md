@@ -32,6 +32,7 @@ git lfs install
 git clone https://github.com/Be-Tap-Code/UPAR-Track-1
 cd UPAR-Track-1
 git lfs pull
+sha256sum -c weights.sha256
 ```
 
 ## Inference
