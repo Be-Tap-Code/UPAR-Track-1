@@ -1,0 +1,23 @@
+# Pin theo đúng runtime nộp bài: pytorch/pytorch:2.4.1-cuda12.1-cudnn9-runtime
+# (Python 3.11, torch 2.4.1, torchvision, numpy, Pillow đã có sẵn trong image đó).
+# Các gói dưới đây là những gì CẦN ĐÓNG GÓI THÊM vào submission.zip vì không có
+# trong image gốc. Cài đúng các bản này khi train trên server để tránh lệch
+# hành vi giữa lúc train và lúc chấm.
+
+torch==2.4.1
+torchvision==0.19.1
+numpy
+Pillow
+timm==1.0.9          # backbone (ConvNeXt/Swin/EVA02/ViT). Đóng gói theo mục 4 export_submission.py
+huggingface_hub==1.33.0   # GHIM CHÍNH XÁC, không để trống version — timm==1.0.9 import
+                     # `repo_type_and_id_from_hf_id` từ huggingface_hub (models/_hub.py), hàm này ĐÃ BỊ
+                     # XÓA trong huggingface_hub 2.0.0 (bản mới nhất pip tự lấy nếu không ghim). Khi thiếu,
+                     # timm nuốt ImportError và báo nhầm "package not installed" dù đã cài — đã tái hiện và
+                     # xác nhận bằng cách import trực tiếp: 2.0.0 lỗi, mọi bản 0.25.2–1.33.0 đều còn hàm này.
+                     # KHÔNG cần trong submission.zip: export_submission.py vendor timm bằng --no-deps
+                     # và lúc nộp bài luôn pretrained=False (load từ weights.pt cục bộ, không gọi HF Hub).
+safetensors          # timm dùng để load weight tải từ HF Hub (định dạng .safetensors), cùng lý do trên
+PyYAML
+pandas
+scikit-learn         # chỉ dùng lúc train/threshold search, KHÔNG cần trong submission.zip
+tqdm

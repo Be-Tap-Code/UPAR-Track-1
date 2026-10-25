@@ -1,0 +1,11 @@
+.git
+.gitignore
+.gitattributes
+__pycache__
+*.pyc
+/runs
+/data
+*.log
+*.npy
+*.npz
+*.zip

@@ -1,0 +1,83 @@
+data:
+  root: /data/UPAR-Challenge-2027/data
+  gt_csvs:
+  - annotations/task1/train/gt.csv
+  - annotations/task1/val/gt.csv
+  image_size:
+  - 224
+  - 112
+  num_workers: 8
+model:
+  backbone: eva02_large_patch14_clip_224.merged2b
+  pretrained: true
+  drop_rate: 0.2
+  grad_checkpointing: false
+  pooling: avg
+  mixstyle:
+    enable: false
+    layers:
+    - stages.0
+    - stages.1
+    p: 0.5
+    alpha: 0.1
+  domain_adversarial:
+    enable: false
+    lambda_max: 1.0
+    domain_loss_weight: 1.0
+  coral:
+    enable: false
+    weight: 1.0
+  img_size:
+  - 224
+  - 112
+  region_head: true
+loss:
+  type: bce
+  gamma_neg: 4.0
+  gamma_pos: 0.0
+  clip: 0.05
+  label_smoothing: 0.0
+train:
+  epochs: 18
+  early_stop_patience: 3
+  batch_size: 6
+  lr_head: 0.0001
+  lr_backbone: 1.0e-05
+  llrd_decay: 0.9
+  weight_decay: 0.0005
+  amp: true
+  optimizer_kind: adamw
+  sam_rho: 0.05
+  scheduler: plateau
+  ema:
+    enable: true
+    decay: 0.9998
+    warmup: false
+  augment:
+    random_crop: true
+    horizontal_flip: true
+    random_erasing: 0.25
+    augmix: true
+    color_jitter: 0.0
+    domain_sim:
+      enable: false
+      blur_p: 0.2
+      jpeg_p: 0.2
+      downscale_p: 0.2
+      downscale_min_scale: 0.3
+      downscale_max_scale: 0.8
+    rrc_ratio_jitter: 0.15
+  balanced_dataset_sampling: true
+  tta_flip_eval: false
+  save_all_epochs: false
+  mixup:
+    alpha: 0.2
+    prob: 1.0
+threshold:
+  search_range:
+  - 0.1
+  - 0.9
+  search_step: 0.02
+  shrink_to_default: 0.3
+output_dir: ./runs
+seed: 42
