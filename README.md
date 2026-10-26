@@ -1,4 +1,4 @@
-# UPAR 2026 Track 1 — Region-aware EVA-02-L CLIP
+# UPAR 2026 Track 1 - Region-aware EVA-02-L CLIP
 
 Official code and weights for our WACV 2027 UPAR Challenge **Track 1** entry.
 
